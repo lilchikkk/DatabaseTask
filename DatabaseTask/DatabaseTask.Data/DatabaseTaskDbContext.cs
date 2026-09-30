@@ -8,6 +8,26 @@ public class DatabaseTaskDbContext : DbContext
     public DatabaseTaskDbContext(DbContextOptions<DatabaseTaskDbContext> options)
         : base(options)
     {
+<<<<<<< HEAD
+=======
+        public DatabaseTaskDbContext(DbContextOptions<DatabaseTaskDbContext> options)
+            : base(options) { }
+
+        // näide, kuidas teha, kui lisate domaini alla ühe objekti
+        // migratsioonid peavad tulema siia libary-sse e TARge20.Data alla.
+        public DbSet<Employee> Employee { get; set; }
+        public DbSet<Prison> Prisons { get; set; }
+        public DbSet<Block> Blocks { get; set; }
+        public DbSet<Cell> Cells { get; set; }
+        public DbSet<Prisoner> Prisoners { get; set; }
+        public DbSet<Sentence> Sentences { get; set; }
+        public DbSet<Crime> Crimes { get; set; }
+        public DbSet<PrisonerCrime> PrisonerCrimes { get; set; }
+        public DbSet<Visitor> Visitors { get; set; }
+        public DbSet<Visit> Visits { get; set; }
+        public DbSet<Guard> Guards { get; set; }
+        public DbSet<Shift> Shifts { get; set; }
+>>>>>>> 6cd5f0a2229a73ce119c4a6e36fc489f3d2f519d
     }
 
     public DbSet<GroupType> GroupTypes => Set<GroupType>();

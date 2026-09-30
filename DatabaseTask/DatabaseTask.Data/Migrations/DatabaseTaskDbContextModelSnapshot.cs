@@ -21,6 +21,98 @@ namespace DatabaseTask.Data.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+<<<<<<< HEAD
+=======
+
+            modelBuilder.Entity("DatabaseTask.Core.Domain.Block", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("BlockNumber")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<int>("PrisonId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("SecurityLevel")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PrisonId");
+
+                    b.ToTable("Blocks");
+                });
+
+            modelBuilder.Entity("DatabaseTask.Core.Domain.Cell", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("BlockId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("CellNumber")
+                        .IsRequired()
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
+
+                    b.Property<int>("Floor")
+                        .HasColumnType("int");
+
+                    b.Property<int>("MaxCapacity")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BlockId");
+
+                    b.ToTable("Cells");
+                });
+
+            modelBuilder.Entity("DatabaseTask.Core.Domain.Crime", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
+
+                    b.Property<string>("SeverityLevel")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Crimes");
+                });
+>>>>>>> 6cd5f0a2229a73ce119c4a6e36fc489f3d2f519d
 
             modelBuilder.Entity("DatabaseTask.Core.Domain.Child", b =>
                 {
@@ -613,6 +705,375 @@ namespace DatabaseTask.Data.Migrations
                     b.Navigation("GroupStaffAssignments");
 
                     b.Navigation("KitchenStaffAssignments");
+                });
+
+            modelBuilder.Entity("DatabaseTask.Core.Domain.Guard", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("Position")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Guards");
+                });
+
+            modelBuilder.Entity("DatabaseTask.Core.Domain.Prison", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Location")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<int>("MaxCapacity")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Prisons");
+                });
+
+            modelBuilder.Entity("DatabaseTask.Core.Domain.Prisoner", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("ArrivalDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("BirthDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("CellId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("PersonalCode")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CellId");
+
+                    b.ToTable("Prisoners");
+                });
+
+            modelBuilder.Entity("DatabaseTask.Core.Domain.PrisonerCrime", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("CrimeId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PrisonerId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CrimeId");
+
+                    b.HasIndex("PrisonerId");
+
+                    b.ToTable("PrisonerCrimes");
+                });
+
+            modelBuilder.Entity("DatabaseTask.Core.Domain.Sentence", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime?>("EndDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("PrisonerId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("SentenceType")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<DateTime>("StartDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PrisonerId");
+
+                    b.ToTable("Sentences");
+                });
+
+            modelBuilder.Entity("DatabaseTask.Core.Domain.Shift", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<TimeSpan?>("EndTime")
+                        .HasColumnType("time");
+
+                    b.Property<int>("GuardId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("ShiftDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<TimeSpan>("StartTime")
+                        .HasColumnType("time");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("GuardId");
+
+                    b.ToTable("Shifts");
+                });
+
+            modelBuilder.Entity("DatabaseTask.Core.Domain.Visit", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<TimeSpan?>("EndTime")
+                        .HasColumnType("time");
+
+                    b.Property<int>("PrisonerId")
+                        .HasColumnType("int");
+
+                    b.Property<TimeSpan>("StartTime")
+                        .HasColumnType("time");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<DateTime>("VisitDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("VisitorId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PrisonerId");
+
+                    b.HasIndex("VisitorId");
+
+                    b.ToTable("Visits");
+                });
+
+            modelBuilder.Entity("DatabaseTask.Core.Domain.Visitor", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
+
+                    b.Property<string>("PersonalCode")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<string>("RelationToPrisoner")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Visitors");
+                });
+
+            modelBuilder.Entity("DatabaseTask.Core.Domain.Block", b =>
+                {
+                    b.HasOne("DatabaseTask.Core.Domain.Prison", "Prison")
+                        .WithMany("Blocks")
+                        .HasForeignKey("PrisonId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Prison");
+                });
+
+            modelBuilder.Entity("DatabaseTask.Core.Domain.Cell", b =>
+                {
+                    b.HasOne("DatabaseTask.Core.Domain.Block", "Block")
+                        .WithMany("Cells")
+                        .HasForeignKey("BlockId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Block");
+                });
+
+            modelBuilder.Entity("DatabaseTask.Core.Domain.Prisoner", b =>
+                {
+                    b.HasOne("DatabaseTask.Core.Domain.Cell", "Cell")
+                        .WithMany("Prisoners")
+                        .HasForeignKey("CellId");
+
+                    b.Navigation("Cell");
+                });
+
+            modelBuilder.Entity("DatabaseTask.Core.Domain.PrisonerCrime", b =>
+                {
+                    b.HasOne("DatabaseTask.Core.Domain.Crime", "Crime")
+                        .WithMany("PrisonerCrimes")
+                        .HasForeignKey("CrimeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("DatabaseTask.Core.Domain.Prisoner", "Prisoner")
+                        .WithMany("PrisonerCrimes")
+                        .HasForeignKey("PrisonerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Crime");
+
+                    b.Navigation("Prisoner");
+                });
+
+            modelBuilder.Entity("DatabaseTask.Core.Domain.Sentence", b =>
+                {
+                    b.HasOne("DatabaseTask.Core.Domain.Prisoner", "Prisoner")
+                        .WithMany("Sentences")
+                        .HasForeignKey("PrisonerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Prisoner");
+                });
+
+            modelBuilder.Entity("DatabaseTask.Core.Domain.Shift", b =>
+                {
+                    b.HasOne("DatabaseTask.Core.Domain.Guard", "Guard")
+                        .WithMany("Shifts")
+                        .HasForeignKey("GuardId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Guard");
+                });
+
+            modelBuilder.Entity("DatabaseTask.Core.Domain.Visit", b =>
+                {
+                    b.HasOne("DatabaseTask.Core.Domain.Prisoner", "Prisoner")
+                        .WithMany("Visits")
+                        .HasForeignKey("PrisonerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("DatabaseTask.Core.Domain.Visitor", "Visitor")
+                        .WithMany("Visits")
+                        .HasForeignKey("VisitorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Prisoner");
+
+                    b.Navigation("Visitor");
+                });
+
+            modelBuilder.Entity("DatabaseTask.Core.Domain.Block", b =>
+                {
+                    b.Navigation("Cells");
+                });
+
+            modelBuilder.Entity("DatabaseTask.Core.Domain.Cell", b =>
+                {
+                    b.Navigation("Prisoners");
+                });
+
+            modelBuilder.Entity("DatabaseTask.Core.Domain.Crime", b =>
+                {
+                    b.Navigation("PrisonerCrimes");
+                });
+
+            modelBuilder.Entity("DatabaseTask.Core.Domain.Guard", b =>
+                {
+                    b.Navigation("Shifts");
+                });
+
+            modelBuilder.Entity("DatabaseTask.Core.Domain.Prison", b =>
+                {
+                    b.Navigation("Blocks");
+                });
+
+            modelBuilder.Entity("DatabaseTask.Core.Domain.Prisoner", b =>
+                {
+                    b.Navigation("PrisonerCrimes");
+
+                    b.Navigation("Sentences");
+
+                    b.Navigation("Visits");
+                });
+
+            modelBuilder.Entity("DatabaseTask.Core.Domain.Visitor", b =>
+                {
+                    b.Navigation("Visits");
                 });
 #pragma warning restore 612, 618
         }
