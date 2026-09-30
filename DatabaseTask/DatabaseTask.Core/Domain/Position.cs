@@ -1,14 +1,10 @@
 ﻿namespace DatabaseTask.Core.Domain;
 
-public class Employee
+public class Position
 {
     public int Id { get; set; }
-    public int GroupTypeId { get; set; }
-    public GroupType GroupType { get; set; } = null!;
-    public string FirstName { get; set; } = null!;
-    public string LastName { get; set; } = null!;
-    public string? Phone { get; set; }
-    public string? Email { get; set; }
+    public string Title { get; set; } = null!;
+    public string? Department { get; set; }
     public string? Comment { get; set; }
 
     public ICollection<GroupStaffAssignment> GroupStaffAssignments { get; set; } = new List<GroupStaffAssignment>();
